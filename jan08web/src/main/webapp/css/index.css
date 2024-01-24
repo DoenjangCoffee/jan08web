@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/* 공동으로 사용하는 css
+	전반적인 모든 페이지에 적용할 모양 */
+body{
+	margin: 0;
+	padding: 0;
+}
+article{
+	margin-top: 50px;
+}
+.mainStyle{
+	width: 900px;
+	margin: 0 auto;
+	padding-top: 10px;
+}
+footer{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 30px;
+	background-color: red;
+	margin-left: 0;
+}
