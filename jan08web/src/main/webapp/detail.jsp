@@ -12,14 +12,29 @@
 <script type="text/javascript" src="./js/menu.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script type="text/javascript">
-	$(function(){
+	$(document).ready(function(){
 		//댓글 바로 수정하기
 		$(".commentUpdate").click(function(){
 			if (confirm("댓글을 수정하시겠소??")) {
 				//필요한 값 cno값 잡기 / 수정한 내용 + 로그인 ==> 서블릿에서 정리
 				let cno = $(this).siblings(".cno").val(); // cno값
-				let comment = $(this).parents(".chead").next().text(); // ccomment값
-				alert(cno + " : " + comment);
+				let comment = $(this).parents(".comment").children(".ccomment"); // ccomment값
+				let commentChange = comment.html().replaceAll("<br>","\r\n");
+				//alert(cno + " : " + comment);
+				
+				comment.css('height','110px');
+				comment.css('padding-top','30px');
+				
+				
+				let recommentBox = '<div class="recommentBox">';
+				recommentBox += '<form action="./cedit" method="post">';
+				recommentBox += '<textarea class="commentcontent" name="comment">' + commentChange + '</textarea>';
+				recommentBox += '<input type="hidden" name="cno" value="'+ cno +'">';
+				recommentBox += '<button type="submit" class="comment-btn1">댓글 수정</button>';
+				recommentBox += '</form></div>';
+				
+				comment.html(recommentBox);
+				$(this).hide();
 			}
 		});
 		
@@ -37,8 +52,8 @@
 			
 			//ajax 만들어서 post로 전송하기
 			if (confirm("댓글을 삭제하시겠소??")) {
-			let cno = $(this).prev().val();
-			let point = $(this).parents(".comment");
+				let cno = $(this).prev().val();
+				let point = $(this).parents(".comment");
 			$.ajax({
 				url : './commentDel', // 어디로 갈 주소
 				type : 'post', 		// get방식, post방식
@@ -55,10 +70,10 @@
 				},
 				error : function(request, status, error){ // 통신 오류 발생시 
 					alert("문제가 발생");
-				}
-			});//ajax end
-		}//if confirm end
-	});
+					}
+				});//ajax end
+			}//if confirm end
+		});//commentDelete.click end
 		
 		
 		//댓글쓰기 버튼을 누르면 댓글창 나오게 하기 01-24
@@ -78,8 +93,8 @@
 			
 			//전송 --> content 5글자 이상인 경우 실행 하겠습니다.
 			//가상 form 만들기
-			if (content.length < 5) {
-				alert("댓글은 5글자 이상으로 적어주세요");
+			if (content.length < 2) {
+				alert("댓글은 2글자 이상으로 적어주세요");
 				$("#commentcontent").focus();
 				//return false;
 			}else{//댓글의 길이가 5이상이면 아래 코드 실행
@@ -120,10 +135,8 @@
 				form.submit(); */
 			}
 		});
+		
 	});
-	
-
-
 </script>
 </head>
 <body>
@@ -165,32 +178,32 @@
 							<c:forEach items="${commentList }" var="co">
 								<div class = "comment">
 									<div class="chead">
-										<div class="cname">&nbsp;${co.mname }님  / ${co.cno }
+										<div class="cname">${co.mname }&nbsp;님 
 										<input type = "hidden" class="cno" value="${co.cno }">
 										<c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
 										<img alt="삭제" src="./img/cdelete.png" class = "commentDelete"> <!-- 댓글은 여러개 이기 때문에 class로 준다. id는 하나만 일때[유일객체이다.] -->
-										<img alt="수정" src="./img/change.png " class = "commentUpdate">
+										<img alt="수정" src="./img/change.png" class = "commentUpdate">
 										</c:if>
-									</div>
 									<div class="cdate">${co.ip} / ${co.cdate }</div>
+									</div>
 								</div>
 							<div class="ccomment">${co.comment }</div>
 						</div>
 					</c:forEach>
 				</div>
-						<article>
-						<button onclick="url('./board?page=${param.page}')">게시판 돌아가기</button>
-						</article>
-				</article>
-				<article>
-				푸터바이
-				</article>
-				</div>
+			<article>
+			<button onclick="url('./board?page=${param.page}')">게시판 돌아가기</button>
+			</article>
+		</article>
+	<article>
+	푸터바이
+	</article>
 		</div>
-		<footer>
-			<c:import url="footer.jsp"/>
-		 </footer>
-	</div>
+			</div>
+				<footer>
+					<c:import url="footer.jsp"/>
+		 		</footer>
+					</div>
 	<script type="text/javascript">
 		function del(){
 			//alert("정말 삭제 할거에요?");
@@ -207,14 +220,14 @@
 				location.href = "./update?no=${detail.no}";
 			}
 		}
-/* 		function commentDel(cno){
+ 		function commentDel(cno){
 			if (confirm("댓글을 삭제하시겠소?")) {
 				location.href="./commentDel?no=${detail.no}&cno="+cno;
 			}
-		} */
+		} 
 		function commentUpdate(cno){
 			if (confirm("댓글을 수정하시겠소?")) {
-				location.href="./commentUpdate?no="
+				location.href="./commentUpdate?no=${detail.no}&cno="+cno;
 			}
 		}
 	</script>
