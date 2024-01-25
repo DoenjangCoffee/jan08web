@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.monwo.dto.CoffeeDTO;
 import com.monwo.dto.CommentDTO;
 
 public class CommentDAO extends AbstractDAO {
@@ -64,6 +65,27 @@ public class CommentDAO extends AbstractDAO {
 			pstmt.setInt(2, dto.getCno());
 			pstmt.setString(3, dto.getMid());
 			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(null, pstmt, con);
+		}
+		
+		return result;
+	}
+
+	public int save(CoffeeDTO dto) {
+		int result = 1;
+		Connection con = db.getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO coffee (fname, fcount)VALUES(? , ?)";
+		
+		try {
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, dto.getFname());
+			pstmt.setInt(2, dto.getFcount());
+			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
