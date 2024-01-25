@@ -129,3 +129,15 @@
 	float:left;
 	border: 0px;
 } 
+.commentcontent1{
+	width: calc(100% - 100px);
+	height: 100px;
+	margin: 0;
+	padding:0;
+	float: left;
+	resize: none;
+	border: 1px solid black;
+	border-right: none;
+	box-sizing: border-box;
+	background-color: yellow;
+} 

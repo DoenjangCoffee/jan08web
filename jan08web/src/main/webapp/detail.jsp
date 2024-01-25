@@ -23,19 +23,56 @@
 				//alert(cno + " : " + comment);
 				
 				comment.css('height','110px');
-				comment.css('padding-top','30px');
 				
+				
+				$(this).hide();
 				
 				let recommentBox = '<div class="recommentBox">';
-				recommentBox += '<form action="./cedit" method="post">';
-				recommentBox += '<textarea class="commentcontent" name="comment">' + commentChange + '</textarea>';
+				//recommentBox += '<form action="./cedit" method="post">';
+				recommentBox += '<textarea class="commentcontent1" name="comment">' + commentChange + '</textarea>';
 				recommentBox += '<input type="hidden" name="cno" value="'+ cno +'">';
-				recommentBox += '<button type="submit" class="comment-btn1">댓글 수정</button>';
-				recommentBox += '</form></div>';
+				recommentBox += '<button class="comment-btn1">댓글 수정</button>';
+				//recommentBox += '</form>';
+				recommentBox += '</div>';
 				
 				comment.html(recommentBox);
-				$(this).hide();
 			}
+		});
+		
+		// 댓글수정 01-25 .comment-btn1버튼 눌렀을 때 .cno값, .commentcontent값 가져오는 명령 만들기
+		$(document).on('click',".comment-btn1",function(){
+			let cno=$(".cno").val();
+			let recomment= $(".commentcontent1").val();
+			let comment=$(this).parents(".ccomment");//댓글 위치
+			//alert(cno+ " : "+recomment);
+			$.ajax({
+				url : './recomment',
+				type : 'post',
+				dataType : 'text',
+				data : {'cno' : cno,'comment':recomment},
+				success : function(result){
+					//alert("통신성공 :"+ result);
+					if (result == 1) {
+						//수정된 데이터를 화면에 보여주기
+						$(this).parent(".recommentBox").remove();
+						comment.css('height','auto');
+						comment.css('padding','auto');
+						comment.html(recomment.replace(/(?:\r\n|\r|\n)/g, '<br>'));
+						$(".commentUpdate").show();
+						
+					} else {
+						// 실패 화면 재로드
+						alert("문제가 발생했습니다. 화면 갱신")
+						//location.href='./detail?page=${param.page}$no=$(param.no)'; //아래 방법도 같은 내용의 코드
+						location.href='./detail?page=${param.page}$no=${detail.no}';
+
+					}
+				},
+				error : function(error){
+					alert("문제가 발생했다."+error);
+				}
+				
+			});//ajax end
 		});
 		
 		
@@ -178,7 +215,7 @@
 							<c:forEach items="${commentList }" var="co">
 								<div class = "comment">
 									<div class="chead">
-										<div class="cname">${co.mname }&nbsp;님 
+										<div class="cname">${co.mname }&nbsp;님 / ${co.cno }
 										<input type = "hidden" class="cno" value="${co.cno }">
 										<c:if test="${sessionScope.mname ne null && co.mid eq sessionScope.mid }">
 										<img alt="삭제" src="./img/cdelete.png" class = "commentDelete"> <!-- 댓글은 여러개 이기 때문에 class로 준다. id는 하나만 일때[유일객체이다.] -->

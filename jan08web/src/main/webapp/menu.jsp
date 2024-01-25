@@ -8,6 +8,7 @@
 		<li onclick="url('./bootstrap')">부트스트랩</li>
 		<li onclick="url('./info')">info</li>
 		<li onclick="url('./team')">팀</li>
+		<li onclick="url('./coffee')">음료선택</li>
 		<li onclick="url('./login')">로그인</li></c:when><c:otherwise>
 		<li onclick="url('./myInfo')">${sessionScope.mname }님</li>
 		<li onclick="url('./logout')">로그아웃</li></c:otherwise></c:choose>
