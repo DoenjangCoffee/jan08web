@@ -18,7 +18,7 @@ import com.monwo.dto.MemberDTO;
 			Connection con = db.getConnection();
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			String sql = "SELECT count(*) as count, mname FROM member WHERE mid=? AND mpw=?";
+			String sql = "SELECT count(*) as count, mname FROM member WHERE mid=? AND mpw=? AND mgrade >= 5";
 			
 			
 			try {

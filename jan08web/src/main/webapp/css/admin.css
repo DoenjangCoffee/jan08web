@@ -1,0 +1,53 @@
+@charset "UTF-8";
+body{
+    background-color: darkgreen;
+    margin: 0;
+    padding: 0;
+}
+.wrap{
+	width: 100%;
+	height: 100vh;/* 높이의 모든걸 차지 하는 놈 "vh" */
+    display: flex; /* 옆으로 배치하기 */
+}
+.menu{
+	width: 150px;
+	height: 100vh;
+	background-color: green;
+}
+.main{
+	width: calc(100% - 150px);
+	height: 100vh;
+	background-color: cornflowerblue;
+}
+.nav{
+    margin-top: 50px;
+
+}
+nav ul{
+    /* 마진과 패딩을 먼저 0으로 준 이유는 li가 기본적으로 가지고 있는 마진과 페딩이 있기 때문 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+nav > ul > li{/* 이렇게 적어도 된다 */
+    margin: 0;
+    padding: 0;
+    margin: 5px 10px;
+    padding: 10px 0px;
+    text-align: center;
+}
+nav ul li:hover{
+    background-color: gold;
+}
+.info{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    /* background-color: azure; */
+    
+
+}

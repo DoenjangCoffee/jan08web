@@ -1,0 +1,117 @@
+@charset "UTF-8";
+body{
+    background-color: darkgreen;
+    margin: 0;
+    padding: 0;
+}
+.wrap{
+	width: 100%;
+	height: 100vh;/* 높이의 모든걸 차지 하는 놈 "vh" */
+    display: flex; /* 옆으로 배치하기 */
+}
+.menu{
+	width: 150px;
+	height: 100vh;
+	background-color: green;
+}
+.main{
+	width: calc(100% - 150px);
+	height: 100vh;
+	background-color: cornflowerblue;
+}
+.nav{
+    margin-top: 50px;
+
+}
+nav ul{
+    /* 마진과 패딩을 먼저 0으로 준 이유는 li가 기본적으로 가지고 있는 마진과 페딩이 있기 때문 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+}
+nav > ul > li{/* 이렇게 적어도 된다 */
+    margin: 0;
+    padding: 0;
+    margin: 5px 10px;
+    padding: 10px 0px;
+    text-align: center;
+}
+nav ul li:hover{
+    background-color: gold;
+}
+article{
+	margin: 10px;
+	padding: 10px;
+	width: calc(100% - 40px);
+	height: calc(100vh - 40px);
+	overflow: scroll;
+}
+
+table{
+	width: 100%;
+	height: auto;
+	border-collapse:collapse;
+}
+th{
+	background-color: bisque;
+	height: 30px;
+	line-height: 30px;
+}
+tr{
+	height: 30px;
+	line-height: 30px;
+}
+tr:hover{
+	background-color: darkorange;
+}
+td{
+	text-align: center;
+}
+
+.d1{
+	width: 10%;
+}
+.d2{
+	width: 20%;
+}
+.title{
+	width: 20%;
+	text-align: left;
+}
+.row0{
+    background-color: brown;
+}
+.row1{
+    background-color: deeppink;
+}
+.row2{
+    background-color: violet;
+}
+.row9{
+    background-color: chocolate;
+}
+.member-lists ul{
+    margin:0;
+    padding: 0;
+    list-style-type: none;
+    height: 30px;
+    line-height: 30px;
+ }
+ .member-lists ul li{
+    width: 100px;
+    display: inline-block;
+    text-align: center;
+    color: gray;
+ }
+ .member-lists ul li:hover {
+    background-color: skyblue;
+    color: black;
+    font-weight: bold;
+ }
+ .member-lists{
+    height: 30px;
+    width: 100%;
+    background-color: #c0c0c0;
+    margin-bottom: 5px;
+ }
